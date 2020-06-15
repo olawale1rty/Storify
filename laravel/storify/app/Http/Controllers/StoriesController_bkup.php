@@ -1,0 +1,25 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Story;
+
+class StoriesController extends Controller
+{
+    //
+    public function index() {
+    	$stories = Story::where('user_id', auth()->user()->id)
+    		->orderBy('id', 'Desc')
+    		->paginate(4);
+    	return view('stories.index', [
+    		'stories' => $stories
+    	]);
+    }
+
+    public function show( Story $story) {
+    	return view('stories.show', [
+    		'story' => $story
+		]);
+    }
+}
